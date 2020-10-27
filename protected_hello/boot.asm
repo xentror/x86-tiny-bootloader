@@ -51,9 +51,6 @@ clear_window:
     pop bp
     ret
 
-msg: db "Vas niquer ta mere !"
-msg_end: db 0
-
 ; Declare GDT struct
 ; here access contain s16_19 and access ( 4 + 4 bits)
 struc GDT_STR
@@ -94,7 +91,6 @@ DATA_SEGMENT equ gdt_data - gdt_start
 
 bits 32
 
-FarPointer dd 0
 boot2:
     ; Replace segment with correct entry in the gdt
     mov ax, DATA_SEGMENT
@@ -104,14 +100,27 @@ boot2:
     mov gs, ax
     mov ss, ax
 
-    ; write a char to vga text buffer
     mov ebx, 0xB8000
-    mov al, '!'
+    mov edx, msg + 0x7c00
+
+    ; write a char to vga text buffer
+print_msg:
+    mov al, [edx]
+    or al, al
+    jz halte
+
     mov ah, 0x02
     mov word [ebx], ax
+    add edx, 1
+    add ebx, 2
+    jmp print_msg
 
+halte:
     cli
     hlt
+
+msg: db "Vas niquer ta mere !"
+msg_end: db 0
 
 times  510-($-$$) db 0
 dw 0xAA55
