@@ -1,0 +1,10 @@
+[X] A20
+[X] GDT
+    [X] Code segment
+    [X] Data segment
+    [] TSS
+[] IDT
+[] Disable Interrupts
+[X] Load GDT descriptor inside GDTR
+[X] Jump on small 32 bits code
+[X] Print welcome message
