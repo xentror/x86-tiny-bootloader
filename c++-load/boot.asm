@@ -125,7 +125,7 @@ halte:
     cli
     hlt
 
-msg: db "Vas niquer ta mere !"
+msg: db "Hello from assembly!"
 msg_end: db 0
 
 times 1024 - ($-$$) db 0

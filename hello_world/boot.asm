@@ -70,7 +70,7 @@ clear_window:
     pop bp
     ret
 
-msg: db "Vas niquer ta mere !"
+msg: db "Hey You ! :)"
 msg_end: db 0
 
 times  510-($-$$) db 0
